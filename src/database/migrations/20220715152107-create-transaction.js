@@ -11,12 +11,20 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references:{
+          model: 'Users',
+          key: 'id'
+        },
         onDelete: 'CASCADE',
         primaryKey: true,
       },
       activeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references:{
+          model: 'Actives',
+          key: 'id'
+        },
         onDelete: 'CASCADE',
         primaryKey: true,
       },
@@ -24,7 +32,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       quantity: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

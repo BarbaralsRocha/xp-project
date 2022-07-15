@@ -5,11 +5,29 @@ const TransactionSchema = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
-    userId: DataTypes.NUMBER,
-    activeId: DataTypes.NUMBER,
+    userId: DataTypes.INTEGER,
+    activeId: DataTypes.INTEGER,
     type: DataTypes.STRING,
-    quantity: DataTypes.NUMBER
+    quantity: DataTypes.INTEGER
   });
+
+  TransactionTable.associate = (models) => {
+
+    models.User.belongsToMany(models.Active, {
+        through: TransactionTable,
+        foreignKey: 'userId',
+        otherKey: 'activeId',
+        as: 'actives'
+    });
+
+    models.Active.belongsToMany(models.User, {
+        through: TransactionTable,
+        foreignKey: "activeId",
+        otherKey: "userId",
+        as: 'users'
+    });
+
+}
 
   return TransactionTable;
 }
