@@ -7,9 +7,9 @@ const UsersSchema = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     password: DataTypes.STRING,
-    cpf: DataTypes.INTEGER,
+    cpf: DataTypes.STRING,
     email: DataTypes.STRING,
-    balance: DataTypes.INTEGER,
+    balance: DataTypes.FLOAT,
     account: DataTypes.INTEGER
   });
 

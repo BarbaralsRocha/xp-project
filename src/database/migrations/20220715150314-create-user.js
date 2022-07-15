@@ -18,7 +18,7 @@ module.exports = {
       },
       cpf: {
         unique:true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       email: {
@@ -27,10 +27,11 @@ module.exports = {
       },
       balance: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       account: {
         allowNull: false,
+        unique:true,
         type: Sequelize.INTEGER
       },
       createdAt: {
