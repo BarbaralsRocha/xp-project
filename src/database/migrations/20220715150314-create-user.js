@@ -22,6 +22,7 @@ module.exports = {
         allowNull: false,
       },
       email: {
+        unique:true,
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -33,16 +34,6 @@ module.exports = {
         allowNull: false,
         unique:true,
         type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
       }
     });
   },
