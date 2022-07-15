@@ -17,8 +17,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       cpf: {
-        type: Sequelize.NUMBER,
         unique:true,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       email: {
@@ -31,7 +31,7 @@ module.exports = {
       },
       account: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
