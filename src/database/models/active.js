@@ -7,8 +7,8 @@ const ActiveSchema = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     action: DataTypes.STRING,
-    price: DataTypes.NUMBER,
-    quantity: DataTypes.NUMBER
+    price: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   });
   
   return ActiveTable;

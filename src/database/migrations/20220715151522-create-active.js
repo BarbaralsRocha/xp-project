@@ -19,11 +19,11 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       quantity: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
