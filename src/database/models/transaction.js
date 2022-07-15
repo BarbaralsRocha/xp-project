@@ -9,7 +9,9 @@ const TransactionSchema = (sequelize, DataTypes) => {
     activeId: DataTypes.INTEGER,
     type: DataTypes.STRING,
     quantity: DataTypes.INTEGER
-  });
+  },
+    { timestamps: false }
+  );
 
   TransactionTable.associate = (models) => {
 

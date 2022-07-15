@@ -11,11 +11,9 @@ const UsersSchema = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     balance: DataTypes.FLOAT,
     account: DataTypes.INTEGER
-  });
-
-  UsersTable.associate = (models) => {
-    UsersTable.hasMany(models.Active, { foreignKey: "userId", as: "actives" });
-  }
+  },
+    { timestamps: false }
+  );
 
   return UsersTable;
 }

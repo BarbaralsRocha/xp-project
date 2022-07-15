@@ -9,7 +9,9 @@ const ActiveSchema = (sequelize, DataTypes) => {
     action: DataTypes.STRING,
     price: DataTypes.FLOAT,
     quantity: DataTypes.INTEGER
-  });
+  },
+    { timestamps: false }
+  );
   
   return ActiveTable;
 }
