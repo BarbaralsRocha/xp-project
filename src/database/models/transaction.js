@@ -18,18 +18,20 @@ const TransactionSchema = (sequelize, DataTypes) => {
     models.User.belongsToMany(models.Active, {
         through: TransactionTable,
         foreignKey: 'userId',
-        otherKey: 'activeId',
-        as: 'actives'
     });
 
     models.Active.belongsToMany(models.User, {
         through: TransactionTable,
-        foreignKey: "activeId",
-        otherKey: "userId",
-        as: 'users'
+        foreignKey: 'activeId',
     });
 
 }
+    // TransactionTable.associate = (models) => {
+    //   TransactionTable.hasMany(models.User, { foreignKey: "userId", as: "users" });
+    // }
+    // TransactionTable.associate = (models) => {
+    //   TransactionTable.hasMany(models.Active, { foreignKey: "activeId", as: "actives" });
+    // }
 
   return TransactionTable;
 }
