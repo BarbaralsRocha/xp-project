@@ -5,7 +5,8 @@ const newUser = async (req, res) => {
     try {
         await userService.createUser(req.body);
         const token = await authentication(req.body);
-        return res.status(201).json(token);
+        const { name, email, balance } = req.body
+        return res.status(201).json({name, email, balance, token});
     } catch (e) {
         console.log(e.message)
         return res.status(409).json({ message: 'User already registered' });
