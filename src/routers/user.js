@@ -9,4 +9,8 @@ routes.post('/',
 userValidation,
 userController.newUser);
 
+
+routes.get('/',
+userController.getUsers);
+
 module.exports = routes;
