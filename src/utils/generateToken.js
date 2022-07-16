@@ -1,16 +1,8 @@
-/* eslint-disable no-unused-vars */
 const { User } = require('../database/models');
 const { generateJWTToken } = require('./JWTToken');
-const authentication = async ({ 
-    _name,
-    _email,
-    _password,
-    cpf,
-    _balance,
-    _account 
-}) => {
+const authentication = async ({ email, password }) => {
     const getUser = await User.findOne({
-        where: { cpf },
+        where: { email, password },
     });
 
     if (!getUser) {
@@ -18,7 +10,7 @@ const authentication = async ({
     }
 
     const token = generateJWTToken(getUser.dataValues);
-    return { token };
+    return token ;
 };
 
 module.exports = authentication;
