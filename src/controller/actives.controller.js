@@ -1,6 +1,6 @@
 const activeService = require('../service/active.service');
 
-const getByClient = async (req, res) => {
+const getByActives = async (req, res) => {
     try{
         const result = await activeService.getActivesById(req.params.id);
         console.log(result)
@@ -11,4 +11,4 @@ const getByClient = async (req, res) => {
     }
 };
 
-module.exports = getByClient;
+module.exports = getByActives;
