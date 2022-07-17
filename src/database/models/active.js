@@ -8,7 +8,7 @@ const ActiveSchema = (sequelize, DataTypes) => {
   },
     { timestamps: false }
   );
-
+  
   return ActiveTable;
 }
 

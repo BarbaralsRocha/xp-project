@@ -2,19 +2,15 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Transactions', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      userId: {
+    userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references:{
-          model: 'Users',
-          key: 'id'
+        references: {
+          model: {
+            tableName: 'Users',
+            key: 'id'
         },
+      },
         onDelete: 'CASCADE',
         primaryKey: true,
       },
@@ -22,8 +18,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references:{
-          model: 'Actives',
-          key: 'id'
+          model: {
+            tableName: 'Actives',
+            key: 'id'
+          },
         },
         onDelete: 'CASCADE',
         primaryKey: true,
@@ -35,7 +33,7 @@ module.exports = {
       quantity: {
         allowNull: false,
         type: Sequelize.INTEGER
-      }
+      },
     });
   },
   // eslint-disable-next-line no-unused-vars
