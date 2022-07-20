@@ -1,6 +1,10 @@
 'use strict';
 const TransactionSchema = (sequelize, DataTypes) => {
   const TransactionTable = sequelize.define("Transaction", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -11,7 +15,7 @@ const TransactionSchema = (sequelize, DataTypes) => {
         },
       },
     },
-    activeId: {
+    assetsId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       references: {
@@ -32,13 +36,13 @@ const TransactionSchema = (sequelize, DataTypes) => {
     models.User.belongsToMany(models.Active, {
         through: TransactionTable,
         foreignKey: 'userId',
-        otherKey: 'activeId',
-        as: 'active'
+        otherKey: 'assetsId',
+        as: 'assets'
     });
 
     models.Active.belongsToMany(models.User, {
         through: TransactionTable,
-        foreignKey: 'activeId',
+        foreignKey: 'assetsId',
         otherKey: 'userId',
         as: 'user'
     });

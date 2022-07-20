@@ -2,8 +2,8 @@
 const ActiveSchema = (sequelize, DataTypes) => {
   const ActiveTable = sequelize.define("Active", {
     name: DataTypes.STRING,
-    action: DataTypes.STRING,
-    price: DataTypes.FLOAT,
+    assets: DataTypes.STRING,
+    price: DataTypes.DECIMAL(10,2),
     quantity: DataTypes.INTEGER
   },
     { timestamps: false }
