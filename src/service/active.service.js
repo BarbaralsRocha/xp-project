@@ -1,6 +1,7 @@
 const { Active } = require('../database/models');
+const getClientsById = require('../db/model/assetsByClient.model')
 
-const updateQuantityActives = (restQuantity, codAtivo) => Active.update(
+const updateQuantityAssets = (restQuantity, codAtivo) => Active.update(
     {
     quantity: restQuantity
     },
@@ -8,29 +9,32 @@ const updateQuantityActives = (restQuantity, codAtivo) => Active.update(
     where: { id: codAtivo}
 });
 
-const getActivesById = async (id) => {
-    const actives = await Active.findByPk(id)
-    const { quantity, price } = actives.dataValues;
+const getAssetsById = async (id) => {
+    const assets = await Active.findByPk(id)
+    console.log(assets)
+    if(!assets) throw new Error(JSON.stringify({ status: 409, message: 'Ativo não encontrado' }))
+    const { quantity, price } = assets.dataValues;
     return {
         codAtivo: id,
         qtdeAtivos: quantity,
         valor: price,
     }
 };
-// const getClientsById = async (id) => {
-//     const todos = await Transaction.findByPk({
-//        where: {
-//             [Op.and]: [
-//                 { type: 'buy' }, 
-//                 { userId: id },
-//             ],
-//         },
-//         include: [{
-//             model: User, as: 'user', through: { attributes: [] }
-//         }]
-//     })
-// console.log(todos)
-// };
 
-module.exports = { updateQuantityActives, getActivesById }
+const assetsClientsById = async (id) => {
+    const type = 'buy'
+    const result = await getClientsById(id, type)
+    if(result.length === 0) throw new Error(JSON.stringify({ status: 401, message: 'Usuário não encontrado' }))
+    const resultado = await Promise.all(result.map((el) => {
+        return {
+        codCliente: el.userId,
+        codAtivo: el.assetsId,
+        qtdeAtivos: el.quantity,
+        valor: el.price,
+        }
+    }))
+    return resultado
+}
+
+module.exports = { updateQuantityAssets, getAssetsById, assetsClientsById }
 
