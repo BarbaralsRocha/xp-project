@@ -4,8 +4,8 @@ const userService = require('./user.service');
 const activeService = require('./active.service');
 
 const sale = async (id, codAtivo, type, qtdeAtivos, conta) => {
-    const findActive = await Active.findByPk(codAtivo);
-    const { quantity, price } = findActive.dataValues;
+    const findAsset = await Active.findByPk(codAtivo);
+    const { quantity, price } = findAsset.dataValues;
 
     const findUser = await User.findByPk(id);
     const { balance, account } = findUser.dataValues;
@@ -13,30 +13,33 @@ const sale = async (id, codAtivo, type, qtdeAtivos, conta) => {
     if(account !== conta){
         throw new Error(JSON.stringify({ status: 401, message: 'Conta inválida' }));
     }
-    checkWallet(qtdeAtivos, id)
     
+    // checkQuantityAssets {
+    const result = await Transaction.findAll({
+        where: { userId: id }
+    }
+            );
+        const getQuantity = await Promise.all(result.map((el) => el.quantity))
+        const amountAssets = getQuantity.reduce((acc,cv) => acc + cv ,0)
+        if(qtdeAtivos > amountAssets) {
+            throw new Error(JSON.stringify({ status: 401, message: 'Qtde de ativos excedido' }))
+        }
+    // }
+
     userService.updateWalletUser(qtdeAtivos * price, balance, id, 'sale')
-    activeService.updateQuantityActives((quantity + qtdeAtivos), codAtivo)
+    activeService.updateQuantityAssets((quantity + qtdeAtivos), codAtivo)
 
     return Transaction.create({
     userId: id,
-    activeId: codAtivo,
+    assetsId: codAtivo,
     type,
     quantity: qtdeAtivos
 })
 };
 
-const checkWallet = async (qtdeAtivos, id) => {
-    const result = await Transaction.findAll({
-    where: { userId: id }
-}
-        );
-    const getQuantity = await Promise.all(result.map((el) => el.quantity))
-    const amountActives = getQuantity.reduce((acc,cv) => acc + cv ,0)
-    if(qtdeAtivos > amountActives) {
-        throw new Error(JSON.stringify({ status: 401, message: 'Quantidade de ativos excedido' }));
-    }
-}
+// const checkQuantityAssets = async (qtdeAtivos, id) => {
+
+// }
 
 
 module.exports = sale
