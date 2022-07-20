@@ -9,20 +9,16 @@ const buy = async (id, codAtivo, type, qtdeAtivos, conta) => {
     const findUser = await User.findByPk(id);
     const { balance, account } = findUser.dataValues;
 
-    if(account !== conta){
-        throw new Error(JSON.stringify({ status: 401, message: 'Conta inválida' }));
-    }
+    if(account !== conta) throw new Error(JSON.stringify({ status: 401, message: 'Conta inválida' }));
 
-    if(qtdeAtivos > quantity) {
-        throw new Error(JSON.stringify({ status: 401, message: 'Quantidade de ativos excedido' }));
-    }
+    if(qtdeAtivos > quantity) throw new Error(JSON.stringify({ status: 401, message: 'Qtde de ativos excedido' }));
 
-    activeService.updateQuantityActives((quantity - qtdeAtivos), codAtivo)
+    activeService.updateQuantityAssets((quantity - qtdeAtivos), codAtivo)
     userService.updateWalletUser(qtdeAtivos * price, balance, id, 'buy')
 
     return Transaction.create({
     userId: id,
-    activeId: codAtivo,
+    assetsId: codAtivo,
     type,
     quantity: qtdeAtivos
 })};
