@@ -1,4 +1,6 @@
-const { User } = require('../database/models');
+require('express');
+require('express-async-errors');
+const { User, Deposit } = require('../database/models');
 
 const createUser = async ({
     name,
@@ -7,14 +9,22 @@ const createUser = async ({
     cpf,
     balance,
     account,
-}) => User.create({
+}) => {
+    const getUser = await User.findOne({
+        where: { email, password },
+    });
+
+    if(getUser) throw new Error(JSON.stringify({ status: 409, message: 'Usuário já possui uma conta existente' }))
+
+    return User.create({
     name,
     email,
     password,
     cpf,
     balance,
     account,
-});
+    })
+};
 
 const getUsers = () => User.findAll({
     attributes: { exclude: ['password'] } });
@@ -37,17 +47,22 @@ const updateWalletUser = async(amount, balance, id, type) =>{
 const amount = async (valor, codCliente, type) => {
     const findUser = await User.findByPk(codCliente);
     if (!findUser) {
-        throw new Error(JSON.stringify({ status: 401, message: 'Usuário nao encontrado' }));
+        throw new Error(JSON.stringify({ status: 409, message: 'Usuário nao encontrado' }));
     }
     const { balance } = findUser.dataValues
     let sum;
     if(type === 'withdraw'){
         sum = balance - valor
         if(sum < 0) {
-            throw new Error(JSON.stringify({ status: 401, message: 'Saldo indisponível' }));
+            throw new Error(JSON.stringify({ status: 422, message: 'Saldo insuficiente' }));
         }
     }
     sum = balance + valor;
+    Deposit.create({
+        userId: codCliente,
+        type,
+        quantity: valor,
+    })
     User.update(
         {
         balance: sum,
