@@ -12,14 +12,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      action: {
+      assets: {
         allowNull: false,
         unique:true,
         type: Sequelize.STRING
       },
       price: {
         allowNull: false,
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL(10,2)
       },
       quantity: {
         allowNull: false,

@@ -2,6 +2,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Transactions', {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
     userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -14,7 +20,7 @@ module.exports = {
         onDelete: 'CASCADE',
         primaryKey: true,
       },
-      activeId: {
+      assetsId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references:{
