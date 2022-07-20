@@ -1,12 +1,12 @@
 const authentication = require('../utils/generateToken');
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
     try{
         const token = await authentication(req.body);
         return res.status(200).json({ token });
     } catch(e) {
-        console.log(e)
-        return res.status(500).json({ message: 'Erro Inesperado' });
+        console.log(e);
+        next(e);
     }
 };
 
