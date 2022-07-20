@@ -9,9 +9,9 @@ const schema = Joi.object({
     'email.base': '400|{{#label}} must be a valid email',
     'string.email': '400|{{#label}} must be a valid email',
     }),
-    password: Joi.string().min(8).required().messages({
+    password: Joi.string().min(6).required().messages({
         'any.required': '400|{{#label}} is required',
-        'string.min': '400|{{#label}} length must be at least 8 characters long',
+        'string.min': '400|{{#label}} length must be at least 6 characters long',
     }),
     cpf: Joi.string().length(11).required().messages({
         'any.required': '400|{{#label}} is required',
