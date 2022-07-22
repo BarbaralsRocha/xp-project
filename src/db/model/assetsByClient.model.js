@@ -26,9 +26,9 @@ Caso a associação estivesse funcionando pelo sequelize, a função getClientsB
 */
 const connection = require('../connection');
 
-const getClientsById = async (id, type) => {
+const assetsByClient = async (id, type) => {
     const [result] = await connection.execute('SELECT * FROM steelInvestiment.Transactions t INNER JOIN steelInvestiment.Actives a ON a.id = t.assetsId WHERE t.userId = ? AND t.type = ?', [id, type])
     return result
 }
 
-module.exports = getClientsById;
+module.exports = { assetsByClient };
