@@ -1,16 +1,19 @@
+/* eslint-disable no-undef */
+require('dotenv').config();
+
 module.exports = {
   "development": {
-    "username": "root",
-    "password": "bitinha123",
-    "database": "steelInvestiment",
-    "host": "127.0.0.1",
+    "username": process.env.MYSQL_USER,
+    "password": process.env.MYSQL_PASSWORD,
+    "database": process.env.MYSQL_DB_NAME || 'steelInvestiment',
+    "host": process.env.MYSQL_HOST,
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
+    "password": process.env.MYSQL_PASSWORD,
     "database": "database_test",
-    "host": "127.0.0.1",
+    "host": process.env.MYSQL_HOST,
     "dialect": "mysql"
   },
   "production": {
