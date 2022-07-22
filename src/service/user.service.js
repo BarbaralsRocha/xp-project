@@ -10,12 +10,12 @@ const createUser = async ({
     balance,
     account,
 }) => {
-    const getUser = await User.findOne({
-        where: { email, password },
-    });
-
+    const getUser = await findUser(
+        email,
+        password,
+        cpf,
+        account)
     if(getUser) throw new Error(JSON.stringify({ status: 409, message: 'Usuário já possui uma conta existente' }))
-
     return User.create({
     name,
     email,
@@ -26,6 +26,17 @@ const createUser = async ({
     })
 };
 
+const findUser = async (
+    email,
+    password,
+    cpf,
+    account,) => {
+    const getUser = await User.findOne({
+        where: { email, password, cpf, account },
+    });
+    return getUser;
+}
+
 const getUsers = () => User.findAll({
     attributes: { exclude: ['password'] } });
 
@@ -35,7 +46,7 @@ const updateWalletUser = async(amount, balance, id, type) =>{
         rest = balance - amount;
     }
     rest = balance + amount;
-    User.update(
+    return User.update(
         {
         balance: rest,
         },
@@ -43,7 +54,6 @@ const updateWalletUser = async(amount, balance, id, type) =>{
         where: { id }
 })
 }
-
 const amount = async (valor, codCliente, type) => {
     const findUser = await User.findByPk(codCliente);
     if (!findUser) {
@@ -63,14 +73,13 @@ const amount = async (valor, codCliente, type) => {
         type,
         quantity: valor,
     })
-    User.update(
+    return User.update(
         {
         balance: sum,
         },
         {
         where: { id: codCliente }
 })
-    return true;
 }
 
 const getAmount = async (codCliente) => {
@@ -87,7 +96,8 @@ module.exports = {
     getUsers,
     updateWalletUser,
     amount,
-    getAmount
+    getAmount,
+    findUser
 }; 
 
     
