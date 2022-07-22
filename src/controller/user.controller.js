@@ -4,7 +4,6 @@ const authentication = require('../utils/generateToken');
 const newUser = async (req, res, next) => {
     try {
         await userService.createUser(req.body);
-        console.log('user')
         const token = await authentication(req.body);
         const { name, email, balance } = req.body
         return res.status(201).json({name, email, balance, token});
