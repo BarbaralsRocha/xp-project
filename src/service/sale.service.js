@@ -7,9 +7,7 @@ const sale = async (id, codAtivo, type, qtdeAtivos, conta) => {
     const findAsset = await Active.findByPk(codAtivo);
     const { quantity, price } = Object.values(findAsset)[0];
     const findUser = await User.findByPk(id);
-    // console.log(Object.assign(findUser))
     const { balance, account } = Object.assign(findUser);
-    console.log({account, conta})
     if(account !== conta){
         throw new Error(JSON.stringify({ status: 401, message: 'Conta inválida' }));
     }
