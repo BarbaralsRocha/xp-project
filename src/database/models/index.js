@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 'use strict';
-
+import url from 'url';
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
