@@ -6,14 +6,14 @@ const authenticationMiddleware = async (req, res, next) => {
     const [, auth] = token.split(' ');
     // Lógica para funcionar tanto no swagger, quanto na requisição local
     let payload;
-    if(token && !auth) {
-        payload = await authenticateToken(token);
-    } else if (!token && auth){
+    if (!token && auth){
         payload = await authenticateToken(auth);
     } else if (token && auth){
         payload = await authenticateToken(auth);
+    } else {
+        payload = await authenticateToken(token);
     }
-
+    
     res.locals.payload = payload;
 
     next();
