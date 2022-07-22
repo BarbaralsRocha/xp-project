@@ -6,7 +6,7 @@ const authentication = async ({ email, password }) => {
     });
 
     if (!getUser) {
-        throw new Error(JSON.stringify({ status: 400, message: 'Invalid fields' }));
+        throw new Error(JSON.stringify({ status: 400, message: 'Campos Inválidos' }));
     }
 
     const token = generateJWTToken(getUser.dataValues);

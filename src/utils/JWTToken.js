@@ -13,7 +13,7 @@ const generateJWTToken = (payload) =>
 
 const authenticateToken = async (token) => {
     if (!token) {
-        throw new Error(JSON.stringify({ status: 401, message: 'Token not found' }));
+        throw new Error(JSON.stringify({ status: 401, message: 'Token não encontrado' }));
     }
 
     try {
@@ -21,7 +21,7 @@ const authenticateToken = async (token) => {
         return introspection;
     } catch (e) {
         console.log('error', e.message);
-        throw new Error(JSON.stringify({ status: 401, message: 'Expired or invalid token' }));
+        throw new Error(JSON.stringify({ status: 401, message: 'Token inválido ou expirado' }));
     }
 };
 
