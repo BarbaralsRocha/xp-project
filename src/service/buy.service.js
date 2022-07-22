@@ -13,8 +13,8 @@ const buy = async (id, codAtivo, type, qtdeAtivos, conta) => {
 
     if(qtdeAtivos > quantity) throw new Error(JSON.stringify({ status: 401, message: 'Qtde de ativos excedido' }));
 
-    activeService.updateQuantityAssets((quantity - qtdeAtivos), codAtivo)
-    userService.updateWalletUser(qtdeAtivos * price, balance, id, 'buy')
+    await activeService.updateQuantityAssets((quantity - qtdeAtivos), codAtivo)
+    await userService.updateWalletUser(qtdeAtivos * price, balance, id, 'buy')
 
     return Transaction.create({
     userId: id,
