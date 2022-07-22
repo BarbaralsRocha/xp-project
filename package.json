@@ -8,7 +8,7 @@
     "test": "jest",
     "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/**/*.js --exit",
     "dev": "nodemon .",
-    "start": "ts-node .",
+    "start": "node index.js",
     "test-coverage": "jest -i --verbose --forceExit --coverage",
     "restore": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
