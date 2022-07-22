@@ -15,7 +15,8 @@ describe("Para as rotas User", () => {
             shell.exec('npm run restore');
         });
     it("é chamado o status com o código 200 e retorna um response com json e a lista de usuários", async () => {
-        let token;
+      shell.exec('npm run restore');  
+      let token;
         await frisby
       .post(`http://localhost:3000/login`,
         {
@@ -46,7 +47,6 @@ describe("Para as rotas User", () => {
           expect(firstUser.email).to.equal('barbaralsrocha@gmail.com');
           expect(firstUser.cpf).to.equal('11122233344');
           expect(firstUser.password).to.equal(undefined);
-          expect(firstUser.balance).to.equal(100000);
           expect(firstUser.account).to.equal(123456);
       });
       });
@@ -67,7 +67,7 @@ describe("Para as rotas User", () => {
           .expect('status', 401)
           .then((responseSales) => {
             const { json } = responseSales;
-            expect(json.message).to.equal('Token not found');
+            expect(json.message).to.equal('Token não encontrado');
           });
       });
     
@@ -85,7 +85,7 @@ describe("Para as rotas User", () => {
           .expect('status', 401)
           .then((responseSales) => {
             const { json } = responseSales;
-            expect(json.message).to.equal('Expired or invalid token');
+            expect(json.message).to.equal('Token inválido ou expirado');
           });
           });
       });

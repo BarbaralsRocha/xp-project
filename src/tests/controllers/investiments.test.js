@@ -73,7 +73,7 @@ describe("Será validado se é possível fazer uma requisição para compras de 
         .expect('status', 401)
         .then((response) => {
         const { json } = response;
-        expect(json.message).to.equal('Token not found');
+        expect(json.message).to.equal('Token não encontrado');
         });
     });
 
@@ -95,7 +95,7 @@ describe("Será validado se é possível fazer uma requisição para compras de 
         .expect('status', 401)
         .then((responseSales) => {
           const { json } = responseSales;
-          expect(json.message).to.equal('Expired or invalid token');
+          expect(json.message).to.equal('Token inválido ou expirado');
         });
 });
 
@@ -243,7 +243,7 @@ describe("Será validado se é possível fazer uma requisição para compras de 
         .expect('status', 401)
         .then((response) => {
         const { json } = response;
-        expect(json.message).to.equal('Token not found');
+        expect(json.message).to.equal('Token não encontrado');
         });
     });
     it('com o token inválido', async () => {
@@ -264,7 +264,7 @@ describe("Será validado se é possível fazer uma requisição para compras de 
             .expect('status', 401)
             .then((responseSales) => {
               const { json } = responseSales;
-              expect(json.message).to.equal('Expired or invalid token');
+              expect(json.message).to.equal('Token inválido ou expirado');
             });
     });
     

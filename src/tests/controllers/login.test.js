@@ -18,8 +18,9 @@ describe("Será validado se é possível logar um usuário com sucesso", () => {
         })
       .expect('status', 200)
       .then((response) => {
-        const { json: { token } } = response;
+        const { json: { token, email } } = response;
         expect(typeof token).to.equal('string');
+        expect(typeof email).to.equal('string');
       });
     });
   });
@@ -39,7 +40,7 @@ describe("Será validado se é possível logar um usuário com sucesso", () => {
       .expect('status', 400)
       .then((response) => {
         const { json } = response;
-        expect(json.message).to.equal('Invalid fields');
+        expect(json.message).to.equal('Campos Inválidos');
       });
     });
   });

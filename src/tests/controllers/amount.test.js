@@ -66,7 +66,7 @@ describe("Será validado se é possível fazer um depósito com sucesso", () => 
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
-        expect(json.message).to.equal('Token not found');
+        expect(json.message).to.equal('Token não encontrado');
       });
     });
 
@@ -84,7 +84,7 @@ describe("Será validado se é possível fazer um depósito com sucesso", () => 
             .expect('status', 401)
             .then((responseSales) => {
             const { json } = responseSales;
-            expect(json.message).to.equal('Expired or invalid token');
+            expect(json.message).to.equal('Token inválido ou expirado');
             });
     });
     it("pq não é possivel encontrar o codCliente", async () => {
@@ -222,7 +222,7 @@ it("sem um token", async () => {
   .expect('status', 401)
   .then((response) => {
     const { json } = response;
-    expect(json.message).to.equal('Token not found');
+    expect(json.message).to.equal('Token não encontrado');
   });
 });
 
@@ -240,7 +240,7 @@ it('com o token inválido', async () => {
         .expect('status', 401)
         .then((responseSales) => {
         const { json } = responseSales;
-        expect(json.message).to.equal('Expired or invalid token');
+        expect(json.message).to.equal('Token inválido ou expirado');
         });
 });
     it("pq o cliente não possui saldo suficiente", async () => {

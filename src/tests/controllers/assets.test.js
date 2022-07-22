@@ -39,7 +39,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
         const { json: { codAtivo, qtdeAtivos, valor } } = response;
         expect(codAtivo).to.equal('1');
         expect(qtdeAtivos).to.equal(10000);
-        expect(valor).to.equal('5.90');
+        expect(valor).to.equal(5.90);
       });
     });
   });
@@ -63,7 +63,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
-        expect(json.message).to.equal('Token not found');
+        expect(json.message).to.equal('Token não encontrado');
       });
     });
 
@@ -81,7 +81,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
           .expect('status', 401)
           .then((responseSales) => {
             const { json } = responseSales;
-            expect(json.message).to.equal('Expired or invalid token');
+            expect(json.message).to.equal('Token inválido ou expirado');
           });
   });
 
@@ -158,11 +158,11 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
         expect(userAsset1.codCliente).to.equal(1);
         expect(userAsset1.codAtivo).to.equal(4);
         expect(userAsset1.qtdeAtivos).to.equal(10000);
-        expect(userAsset1.valor).to.equal('0.50');
+        expect(userAsset1.valor).to.equal(0.50);
         expect(userAsset2.codCliente).to.equal(1);
         expect(userAsset2.codAtivo).to.equal(5);
         expect(userAsset2.qtdeAtivos).to.equal(15000);
-        expect(userAsset2.valor).to.equal('0.74');
+        expect(userAsset2.valor).to.equal(0.74);
       });
     });
   });
@@ -186,7 +186,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
-        expect(json.message).to.equal('Token not found');
+        expect(json.message).to.equal('Token não encontrado');
       });
     });
 
@@ -204,7 +204,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             .expect('status', 401)
             .then((responseSales) => {
             const { json } = responseSales;
-            expect(json.message).to.equal('Expired or invalid token');
+            expect(json.message).to.equal('Token inválido ou expirado');
             });
             });
     it("com um id inválido", async () => {
