@@ -6,7 +6,7 @@ const erroHandler  = require('../middlewares/errorHandler');
 
 const routes = express.Router();
 
-routes.get('/ativos/:id', authentication, activesController.getAssetsClients);
+routes.get('/clientes/:id', authentication, activesController.getAssetsClients);
 
 routes.use(erroHandler);
 module.exports = routes;
