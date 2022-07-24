@@ -6,9 +6,11 @@ require('dotenv').config();
 
 // ROTA PARA COMPRA DE INVESTIMENTOS
 describe("Será validado se é possível fazer uma requisição para compras de investimentos com sucesso", () => {
-  beforeEach(() => {
-    shell.exec('npm run restore');
-});
+  beforeAll(() => {
+    shell.exec('npm run restore',
+      { silent: process.env.DEBUG === "false" });
+  });
+
     it("e retornar um json com as chaves codCliente, codAtivo e qtdeAtivos", async () => {
         let token;
         await frisby
@@ -50,10 +52,6 @@ describe("Será validado se é possível fazer uma requisição para compras de 
   });
 
   describe("Será validado se não é possível fazer uma requisição de compras de investimentos", () => {
-    beforeEach(() => {
-      shell.exec('npm run restore');
-  });
-
 
       it("sem um token", async () => {
         await frisby
@@ -176,9 +174,6 @@ describe("Será validado se é possível fazer uma requisição para compras de 
   // ROTA PARA VENDA DE INVESTIMENTOS
 
   describe("Será validado se é possível fazer uma requisição para investimento de venda com sucesso", () => {
-    beforeEach(() => {
-      shell.exec('npm run restore');
-  });
     it("e retornar um json com as chaves codCliente, codAtivo e qtdeAtivos", async () => {
         let token;
         await frisby
@@ -220,10 +215,6 @@ describe("Será validado se é possível fazer uma requisição para compras de 
   });
 
   describe("Será validado se não é possível fazer uma requisição de venda de investimentos", () => {
-    beforeEach(() => {
-      shell.exec('npm run restore');
-  });
-    
 
       it("sem um token", async () => {
         await frisby

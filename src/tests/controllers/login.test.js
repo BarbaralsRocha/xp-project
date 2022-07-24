@@ -6,9 +6,11 @@ require('dotenv').config();
 
 
 describe("Será validado se é possível logar um usuário com sucesso", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
+  beforeAll(() => {
+    shell.exec('npm run restore',
+      { silent: process.env.DEBUG === "false" });
+  });
+
     it("e retornar um token", async () => {
         await frisby
       .post(`http://localhost:3000/login`,
@@ -26,9 +28,6 @@ describe("Será validado se é possível logar um usuário com sucesso", () => {
   });
 
   describe("Será validado se não é possível logar um usuário", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
 
     it("pq o usuário não possui conta ou o campo esta inválido", async () => {
         await frisby

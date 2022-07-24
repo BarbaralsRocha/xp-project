@@ -6,9 +6,11 @@ require('dotenv').config();
 
 // ROTA PARA GET ASSETS BY ID
 describe("Será validado se é possível fazer uma requisição GET para ativos por id", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
+  beforeAll(() => {
+    shell.exec('npm run restore',
+      { silent: process.env.DEBUG === "false" });
+  });
+
     it("e retornar um json com as chaves codAtivo, qtdeAtivos e valor", async () => {
         let token;
         await frisby
@@ -33,11 +35,11 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             },
         },
         })
-      .get(`http://localhost:3000/assets/ativos/1`)
+      .get(`http://localhost:3000/ativos/1`)
       .expect('status', 200)
       .then((response) => {
         const { json: { codAtivo, qtdeAtivos, valor } } = response;
-        expect(codAtivo).to.equal('1');
+        expect(codAtivo).to.equal(1);
         expect(qtdeAtivos).to.equal(10000);
         expect(valor).to.equal(5.90);
       });
@@ -45,9 +47,6 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
   });
 
   describe("Será validado se não é possível fazer uma requisição GET para ativos por id", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
 
     it("sem um token", async () => {
         await frisby
@@ -59,7 +58,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             },
         },
         })
-      .get(`http://localhost:3000/assets/ativos/1`)
+      .get(`http://localhost:3000/ativos/1`)
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
@@ -77,7 +76,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
               },
             },
           })
-          .get(`http://localhost:3000/assets/ativos/1`)
+          .get(`http://localhost:3000/ativos/1`)
           .expect('status', 401)
           .then((responseSales) => {
             const { json } = responseSales;
@@ -109,7 +108,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             },
         },
         })
-      .get(`http://localhost:3000/assets/ativos/15`)
+      .get(`http://localhost:3000/ativos/15`)
       .expect('status', 409)
       .then((response) => {
         const { json } = response;
@@ -122,9 +121,6 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
 
 // ROTA PARA GET ClIENTS ASSETS BY ID
   describe("Será validado se é possível fazer uma requisição GET para ativos de clientes por id", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
     it("e retornar um json com as chaves codCliente, codAtivo, qtdeAtivos e valor", async () => {
         let token;
         await frisby
@@ -149,7 +145,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             },
         },
         })
-      .get(`http://localhost:3000/clientes/ativos/1`)
+      .get(`http://localhost:3000/ativos/clientes/1`)
       .expect('status', 200)
       .then((response) => {
         const { json } = response;
@@ -168,9 +164,6 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
   });
 
   describe("Será validado se não é possível fazer uma requisição GET para ativos de clientes por id", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
 
     it("sem um token", async () => {
         await frisby
@@ -182,7 +175,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             },
         },
         })
-      .get(`http://localhost:3000/clientes/ativos/1`)
+      .get(`http://localhost:3000/ativos/clientes/1`)
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
@@ -200,7 +193,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
                 },
             },
             })
-            .get(`http://localhost:3000/clientes/ativos/1`)
+            .get(`http://localhost:3000/ativos/clientes/1`)
             .expect('status', 401)
             .then((responseSales) => {
             const { json } = responseSales;
@@ -231,7 +224,7 @@ describe("Será validado se é possível fazer uma requisição GET para ativos 
             },
         },
         })
-      .get(`http://localhost:3000/clientes/ativos/15`)
+      .get(`http://localhost:3000/ativos/clientes/15`)
       .expect('status', 401)
       .then((response) => {
         const { json } = response;

@@ -7,15 +7,14 @@ require('dotenv').config();
 
 // Rota de GET user
 describe("Para as rotas User", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
+  beforeAll(() => {
+    shell.exec('npm run restore',
+      { silent: process.env.DEBUG === "false" });
+  });
+
     describe("Será validado se é possível listar as pessoas usuárias com sucesso", () => {
-        beforeEach(() => {
-            shell.exec('npm run restore');
-        });
+
     it("é chamado o status com o código 200 e retorna um response com json e a lista de usuários", async () => {
-      shell.exec('npm run restore');  
       let token;
         await frisby
       .post(`http://localhost:3000/login`,
@@ -94,15 +93,6 @@ describe("Para as rotas User", () => {
     
       // Rota POST user
       describe("Será validado se é possível cadastrar as pessoas usuárias com sucesso", () => {
-        beforeAll(() => {
-            shell.exec([
-              'npx sequelize-cli db:drop',
-              'npx sequelize-cli db:create',
-              'sequelizeCli.migrate',
-              'npx sequelize-cli db:seed:all,'
-            ].join(' && '),
-              { silent: process.env.DEBUG === "false" });
-          });
     
         it("é chamado o status com o código 201 e retorna um response com token", async () => {
            await frisby

@@ -6,9 +6,11 @@ require('dotenv').config();
 
 // ROTA PARA DEPOSITO
 describe("Será validado se é possível fazer um depósito com sucesso", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
+  beforeAll(() => {
+    shell.exec('npm run restore',
+      { silent: process.env.DEBUG === "false" });
+  });
+
     it("e retornar um json com as chaves codCliente e valor", async () => {
         let token;
         await frisby
@@ -48,9 +50,6 @@ describe("Será validado se é possível fazer um depósito com sucesso", () => 
   });
 
   describe("Será validado se não é possível fazer um deposito", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
     
       it("sem um token", async () => {
         await frisby
@@ -127,9 +126,6 @@ describe("Será validado se é possível fazer um depósito com sucesso", () => 
   // ROTA PARA SAQUE
 
 describe("Será validado se é possível fazer um saque com sucesso", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
 it("e retornar um json com as chaves codCliente e valor", async () => {
     let token;
     await frisby
@@ -169,10 +165,23 @@ it("e retornar um json com as chaves codCliente e valor", async () => {
 });
 
 describe("Será validado se não é possível fazer um saque", () => {
-    beforeEach(() => {
-        shell.exec('npm run restore');
-    });
-
+  it("sem um token", async () => {
+    await frisby
+    .setup({
+    request: {
+        headers: {
+        Authorization: '',
+        'Content-Type': 'application/json',
+        },
+    },
+    })
+  .get(`http://localhost:3000/conta/saque`)
+  .expect('status', 401)
+  .then((response) => {
+    const { json } = response;
+    expect(json.message).to.equal('Token não encontrado');
+  });
+});
 it("pq não é possivel encontrar o codCliente", async () => {
     let token;
     await frisby
@@ -206,24 +215,6 @@ it("pq não é possivel encontrar o codCliente", async () => {
     const { json } = response;
     expect(json.message).to.equal('Usuário nao encontrado');
     });    
-});
-
-it("sem um token", async () => {
-    await frisby
-    .setup({
-    request: {
-        headers: {
-        Authorization: '',
-        'Content-Type': 'application/json',
-        },
-    },
-    })
-  .get(`http://localhost:3000/conta/saque`)
-  .expect('status', 401)
-  .then((response) => {
-    const { json } = response;
-    expect(json.message).to.equal('Token não encontrado');
-  });
 });
 
 it('com o token inválido', async () => {
