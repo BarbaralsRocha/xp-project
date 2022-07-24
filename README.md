@@ -23,7 +23,7 @@ Além dessas tecnologias, foi utilizado outras bibliotecas para dar suporte na r
 
 ## Como rodar a aplicação:
 
-`git clone`
+`git clone git@github.com:BarbaralsRocha/xp-project.git`
 
 `npm install`
 
