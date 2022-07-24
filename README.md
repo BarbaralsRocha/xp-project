@@ -53,7 +53,7 @@ Para executar a aplicação, rode o comando `npm run dev`
 
 ### Relação entre tabelas:
 
-![relacao-tabelas.jpeg](App%20Investimento%20em%20ac%CC%A7o%CC%83es%20-%20Xp%20Challange%20061ef600826a4926b1dad407bb80fbb0/relacao-tabelas.jpeg)
+![relacao-tabelas.jpeg](relacao-tabelas.jpeg)
 
 **Tabela 1 - User 1:N** 
 
@@ -125,7 +125,7 @@ email - email do usuário
 
 **GET - ativos/clientes/{id}** - Necessita de um token para acessar essa rota. Não será possível visualizar quais ativos os clientes possuem caso o código do cliente não seja informado ou não exista
 
-**GET - ativos/1**  - Necessita de um token para acessar essa rota. Não será possível visualizar o ativos caso o código do ativo não seja informado ou não exista.
+**GET - ativos/{id}**  - Necessita de um token para acessar essa rota. Não será possível visualizar o ativos caso o código do ativo não seja informado ou não exista.
 
 ### Pontos de melhoria:
 
